@@ -1,0 +1,9 @@
+..\obj\stm32f4xx_it.o: stm32f4xx_it.c
+..\obj\stm32f4xx_it.o: stm32f4xx_it.h
+..\obj\stm32f4xx_it.o: stm32f4xx.h
+..\obj\stm32f4xx_it.o: ..\CORE\core_cm4.h
+..\obj\stm32f4xx_it.o: D:\MDK5.10\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\stm32f4xx_it.o: ..\CORE\core_cmInstr.h
+..\obj\stm32f4xx_it.o: ..\CORE\core_cmFunc.h
+..\obj\stm32f4xx_it.o: ..\CORE\core_cm4_simd.h
+..\obj\stm32f4xx_it.o: system_stm32f4xx.h

@@ -1,0 +1,10 @@
+..\obj\ringbuf.o: ringbuf.c
+..\obj\ringbuf.o: ringbuf.h
+..\obj\ringbuf.o: ..\SYSTEM\sys\sys.h
+..\obj\ringbuf.o: ..\USER\stm32f4xx.h
+..\obj\ringbuf.o: ..\CORE\core_cm4.h
+..\obj\ringbuf.o: D:\MDK5.10\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\ringbuf.o: ..\CORE\core_cmInstr.h
+..\obj\ringbuf.o: ..\CORE\core_cmFunc.h
+..\obj\ringbuf.o: ..\CORE\core_cm4_simd.h
+..\obj\ringbuf.o: ..\USER\system_stm32f4xx.h
