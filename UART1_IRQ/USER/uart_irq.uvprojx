@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\FWLIB\inc;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;.\ringbuf等2个文件;..\HARDWARE\LED</IncludePath>
+              <IncludePath>..\CORE;..\FWLIB\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;.\ringbuf等2个文件;..\HARDWARE\LED;..\USER;..\HARDWARE\My_i2c;..\HARDWARE\LSM303DLHC</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -488,6 +488,11 @@
               <FileType>1</FileType>
               <FilePath>..\FWLIB\src\stm32f4xx_gpio.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWLIB\src\stm32f4xx_i2c.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -497,6 +502,16 @@
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\LED\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>my_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\My_i2c\my_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>lsm303dlhc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\LSM303DLHC\lsm303dlhc.c</FilePath>
             </File>
           </Files>
         </Group>

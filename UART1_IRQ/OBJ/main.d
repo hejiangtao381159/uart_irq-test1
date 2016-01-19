@@ -30,7 +30,10 @@
 ..\obj\main.o: ..\FWLIB\inc\misc.h
 ..\obj\main.o: ..\FWLIB\inc\stm32f4xx_flash_ramfunc.h
 ..\obj\main.o: ..\SYSTEM\sys\sys.h
+..\obj\main.o: ..\HARDWARE\My_i2c\my_i2c.h
 ..\obj\main.o: ..\HARDWARE\LED\led.h
 ..\obj\main.o: ..\SYSTEM\delay\delay.h
 ..\obj\main.o: ringbuf.h
 ..\obj\main.o: D:\MDK5.10\ARM\ARMCC\Bin\..\include\string.h
+..\obj\main.o: ..\HARDWARE\LSM303DLHC\lsm303dlhc.h
+..\obj\main.o: ..\HARDWARE\LSM303DLHC\accelero.h

@@ -1,16 +1,20 @@
 #include "usart.h"
+#include"my_i2c.h"
 #include"sys.h"
 #include"led.h"
 #include "delay.h"
 #include"ringbuf.h"
 #include"stdio.h"
 #include"string.h"
+#include"lsm303dlhc.h"
 #define BUF_LEN (100)
 char buf[BUF_LEN];
 struct ringbuf ring_rx;//接收缓冲区
 struct ringbuf ring_tx;//发送缓冲区
 char temp1[100][100];
 char temp[100]={0};
+char buf_mag[10]={0};
+char buf_acc[10]={0};
 char *loc_temp0[2]={"sensor","set_charger"}; 
 char *loc_temp1[10]={"SOC","CC","CV","START","STOP"};
 int main(void)
@@ -18,22 +22,47 @@ int main(void)
 	  int cnt=0;//标志位
 	  int rev_done = 0;//接收完成标志位
 	  int i,j,k;
+	  int16_t pdata_mag[3]={0,0,0};
+	  int16_t pdata_acc[3]={0,0,0};
 	  int pos1,pos2,pos3;
 	  int print_flag=0;//打印标志位
 	  int CMD_Code=0;//一级命令标号
 	  int CMD_Code_Sec=0;//二级命令号
-	  int a=1;
+	  int a=0;
 	  i=j=k=0;
 	  pos1=pos2=pos3=0;
 	  ringbuf_init(&ring_rx,buf,BUF_LEN);
 	  ringbuf_init(&ring_tx,buf,BUF_LEN);
 	  uart2_init(9600); 
-	  
-	   USART_ITConfig(USART2,USART_IT_TXE,DISABLE);  //关中断 
+	  i2c_init();
+		LSM303DLHC_MagInit();
+		LSM303DLHC_AccInit();
+	  USART_ITConfig(USART2,USART_IT_TXE,DISABLE);  //关中断 
 		
 	//ringbuf_put(&ring_tx,'a');
 	//ringbuf_put(&ring_tx,'a');
- 
+   LSM303DLHC_AccReadXYZ(pdata_acc);//取出加速度值
+	 Demo_CompassReadMag(pdata_mag);//取出磁力值
+	 uart2_puts("MAG X,Y,Z value:");
+	 uart2_putc(10);
+	 uart2_putc(13);
+	 for(a=0;a<3;a++){
+		  sprintf(buf_mag,"%d",pdata_mag[a]);
+		  uart2_puts(buf_mag);
+		  uart2_putc(10);
+	    uart2_putc(13);
+	 }
+	 uart2_putc(10);
+	 uart2_putc(13);
+	 uart2_puts("ACC X,Y,Z value:");
+	 uart2_putc(10);
+	 uart2_putc(13);
+	 for(a=0;a<3;a++){
+		  sprintf(buf_acc,"%d",pdata_acc[a]);
+		  uart2_puts(buf_acc);
+		  uart2_putc(10);
+		  uart2_putc(13);
+	 }
 	 
 	while(1){	
 		//启动发送中断
@@ -41,7 +70,7 @@ int main(void)
 	   //cnt=0;
 		//解析字符串
 		// 1.查询缓冲区是否有字符接收到，有就读出来 
-		 // 
+  
 		if(ringbuf_elements(&ring_rx)>0){
 				//USART_ITConfig(USART2,USART_IT_RXNE,DISABLE);//关闭接收中断
 				temp[cnt]=ringbuf_get(&ring_rx);
@@ -86,12 +115,10 @@ int main(void)
 	    }
 		uart2_putc(10);
 		uart2_putc(13);
-    uart2_puts(temp1[1]);
-		uart2_putc(10);
-		uart2_putc(13);	
+    
 			//匹配命令
 		
-			while(j<2 && strcmp(loc_temp0[j],temp1[0])!=0){
+		/*	while(j<2 && strcmp(loc_temp0[j],temp1[0])!=0){
 				j++;
 			}
 			CMD_Code=j;
@@ -162,7 +189,7 @@ int main(void)
 										   break;
 								}
 								break;
-				 }
+				 }*/
 		   print_flag=0;
 			 cnt=0; 
 	   	 pos1=pos2=pos3=0; 
