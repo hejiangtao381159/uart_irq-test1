@@ -6,7 +6,7 @@
 
 void uart2_init(u32 bound){
    
-GPIO_InitTypeDef GPIO_InitStructure;
+  GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure; 
 	//PA2:USART2_TX  ; PA3:USART2_RX
@@ -32,7 +32,6 @@ GPIO_InitTypeDef GPIO_InitStructure;
 
 	USART_Init(USART2, &USART_InitStructure);
 
-	//USART_ClearFlag(USART2, USART_FLAG_TC);
               
   USART_ITConfig(USART2,USART_IT_RXNE,ENABLE); //使能接收中断   	
 	USART_Cmd(USART2, ENABLE);
@@ -47,28 +46,38 @@ GPIO_InitTypeDef GPIO_InitStructure;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;    
   NVIC_Init(&NVIC_InitStructure);  
 }
+//字符串发送API
+	void uart2_SendDatas(char* pchar){
+	 if(ringbuf_elements(&ring_tx)==0){
+	    while(*pchar){
+		    ringbuf_put(&ring_tx,*pchar);
+		  pchar++;
+	  }
+	  USART_ITConfig(USART2,USART_IT_TXE,ENABLE); 
+  }
+}
 
+
+//串口2的中断处理函数
 void USART2_IRQHandler(void)  
-{  
-  uint8_t data;  
- // uint8_t err;  
-	
-   if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET) //产生接收中断
+{ 
+    uint8_t data;  
+ // uint8_t err; 
+
+   if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET) //接收中断
     {    
 			  data=USART_ReceiveData(USART2); 
         ringbuf_put(&ring_rx,data);   // 把接收到数据放入缓冲区中  
         USART2->DR=data;//回显		
     }  
-   else if(USART2->SR &USART_FLAG_TXE)   //产生发送中断
+   else if(USART_GetITStatus(USART2, USART_IT_TXE) != RESET ) //产生发送中断
     { 
 				if(ringbuf_elements(&ring_tx)==0){                        //判断缓冲区是否为空
-					  //USART_ITConfig(USART2, USART_IT_TXE| USART_IT_TC, DISABLE); //没有数据发送，关闭中断  
-					 USART_ITConfig(USART1,USART_IT_TXE,DISABLE); 
+					USART_ITConfig(USART2,USART_IT_TXE,DISABLE); 
 					return;
 				 }
 				else{
-				 USART2->DR=ringbuf_get(&ring_tx);
-					USART_ITConfig(USART2,USART_IT_TXE,DISABLE);  //关中断 
+				  USART2->DR=ringbuf_get(&ring_tx);
 					return ;
          }  
      }     		                                           

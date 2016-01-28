@@ -7,7 +7,7 @@
 extern void uart2_init(u32 bound);
 extern void uart2_putc(char c);
 extern void uart2_puts(const char *str);
-
+extern void uart2_SendDatas(char* pchar);
 #endif
 
 

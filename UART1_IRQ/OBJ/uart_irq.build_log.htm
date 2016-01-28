@@ -21,18 +21,43 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.14.0_KEIL
 Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
-C:\Users\Admin\Desktop\dsfs\uart_irq-test1\UART1_IRQ\USER\uart_irq.uvprojx
+C:\Users\Admin\Desktop\ssss\uart_irq-test1\UART1_IRQ\USER\uart_irq.uvprojx
 Project File Date:  01/13/2016
 
 <h2>Output:</h2>
 Build target 'Target 1'
-compiling stm32f4xx_i2c.c...
+compiling main.c...
+..\HARDWARE\My_i2c\my_i2c.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+main.c(29): warning:  #177-D: variable "pdata_mag" was declared but never referenced
+          int16_t pdata_mag[3]={0,0,0};
+main.c(30): warning:  #177-D: variable "pdata_acc" was declared but never referenced
+          int16_t pdata_acc[3]={0,0,0};
+main.c(31): warning:  #550-D: variable "pos1" was set but never used
+          int pos1,pos2,pos3;
+main.c(31): warning:  #550-D: variable "pos3" was set but never used
+          int pos1,pos2,pos3;
+main.c(35): warning:  #177-D: variable "a" was declared but never referenced
+          int a=0;
+main.c(36): warning:  #177-D: variable "pchar" was declared but never referenced
+                char* pchar;
+main.c: 7 warnings, 0 errors
+compiling usart.c...
+compiling led.c...
+compiling my_i2c.c...
+..\HARDWARE\My_i2c\my_i2c.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\My_i2c\my_i2c.c: 1 warning, 0 errors
+compiling lsm303dlhc.c...
+..\HARDWARE\My_i2c\my_i2c.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\LSM303DLHC\lsm303dlhc.c: 1 warning, 0 errors
 linking...
-Program Size: Code=4924 RO-data=424 RW-data=24 ZI-data=11272  
-"..\OBJ\uart_irq.axf" - 0 Error(s), 0 Warning(s).
+Program Size: Code=4072 RO-data=472 RW-data=68 ZI-data=11268  
+"..\OBJ\uart_irq.axf" - 0 Error(s), 9 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\Admin\Desktop\dsfs\uart_irq-test1\UART1_IRQ\USER\RTE
+  C:\Users\Admin\Desktop\ssss\uart_irq-test1\UART1_IRQ\USER\RTE
   D:\MDK5.10\ARM\PACK\Keil\STM32F4xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
